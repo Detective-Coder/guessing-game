@@ -8,6 +8,7 @@ namespace guessing_game
         {
 
             Console.WriteLine("I want to play a game.");
+            Console.WriteLine("");
             Console.Write("Choose a level: ");
             Console.Write("simpleton, milktoast, or genius.  ");
             string level = Console.ReadLine();
