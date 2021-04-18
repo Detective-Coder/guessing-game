@@ -6,54 +6,77 @@ namespace guessing_game
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Guess the secret number.");
-            Console.WriteLine();
-            GuessQuestion();
-        }
 
-        static void ComputerSays(string message) 
-        {
-          Console.WriteLine($@"{message}");
-        }
+            Console.WriteLine("I want to play a game.");
+            Console.Write("Choose a level: ");
+            Console.Write("simpleton, milktoast, or genius.  ");
+            string level = Console.ReadLine();
+            int allowedTries;
 
-        static bool ComputerAsks(string question)
-        {
-          // int randomNumber = new Random().Next(1, 100);
-          // Console.WriteLine(randomNumber);
-
-          for (int i = 1; i <= 4; i++) {
-            Console.Write($"{question} ");
-            Console.Write($"This is guess {i} of 4 ");
-
-            string answer = Console.ReadLine().ToLower(); 
-
-            if (answer == "42")
+            if (level == "simpleton")
             {
-              return true;
+                allowedTries = 8;
             }
-            
-          }
-          return false;
+            else if (level == "milktoast")
+            {
+                allowedTries = 6;
+            }
+            else if (level == "genius")
+            {
+                allowedTries = 4;
+            }
+            else
+            {
+
+                Console.WriteLine("Not a choice. Game over.");
+                allowedTries = 0;
+            }
+
+
+            Console.WriteLine("There exists a number that will unlock eternity. Can you guess it?");
+            int secretNumber = new Random().Next(1, 100);
+            int guess = Convert.ToInt32(Console.ReadLine());
+
+
+            int numberOfTries = 0;
+
+            while (true)
+            {
+                
+                numberOfTries++;
+
+                if (numberOfTries == allowedTries)
+                {
+                    Console.WriteLine($"Your death is not a surprise. The number was {secretNumber}.");
+                    break;
+                }
+
+                else if (guess > secretNumber)
+                {
+
+                    Console.WriteLine($"You have of course guessed too high. You have {allowedTries - numberOfTries} guesses remaining.");
+                    guess = Convert.ToInt32(Console.ReadLine());
+
+                }
+                else if (guess < secretNumber)
+                {
+                    Console.WriteLine($"Your ignorance is astounding, and your guess is too low. You have {allowedTries - numberOfTries} guesses remaining.");
+                    guess = Convert.ToInt32(Console.ReadLine());
+
+                }
+
+                else if (guess == secretNumber)
+                {
+                    Console.WriteLine($"Indeed. It was {secretNumber}. You live another day.");
+                    break;
+                }
+
+
+            }
+
         }
 
-        static void GuessQuestion()
-        {
-          bool isTrue = ComputerAsks("What's your guess?");
-          if (isTrue)
-          {
-            ComputerSays("That's right!");
-          }
-          else
-          {
-            ComputerSays("WRONG");
-          }
-        }
 
-        // Die Roll()
-        // {
-        //   int dieValue = new Random().Next(1, 6);
-        //   Die die = new Die(dieValue);
-        //   return die;
-        // }
     }
+
 }
